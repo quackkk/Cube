@@ -78,7 +78,19 @@ begin
     inc(i);
   end;
 end;
-procedure position_calc();
+procedure position_calc(beg_arr:tm;res_arr:sm);
+var
+  n,i,j:Byte;
+
+begin
+  n:=Length(res_arr);
+for i:=0 to n-1 do
+  if res_arr[beg_arr[i,1]-1,0] > 0 then
+    begin
+      if i  <
+    end;
+
+end;
 
 
 
