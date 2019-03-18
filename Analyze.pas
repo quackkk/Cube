@@ -12,7 +12,7 @@ var
   n, i, j, x, y, ind: Integer;
   row, sum, k:byte;
 begin
-  n := Length(arr);
+  n := Length(arr)-1;
   SetLength(Result, n, n * 2 + 1);
   for i:= 0 to n - 1 do
     for j := 0 to n * 2 do
@@ -28,7 +28,9 @@ begin
           Inc(i);
           Continue;
         end
-        else row := 0;
+        else
+        if ((i > (arr[n,1]-1)) and (i < (n - arr[n,2]))) then row := 0
+        else Continue;
     ind :=  arr[i,row+1]-1;
     Result[ind,0]:= (-1 + 2*row)*(i+1);
     //right
