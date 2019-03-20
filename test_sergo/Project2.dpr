@@ -16,24 +16,17 @@ begin
   repeat
     write('Enter N: ');
     readln(n);
-    mass := generation(n);
-    if mass <> nil then
-    begin
-      for i := 0 to n - 1 do
-        write(mass[i, 2]: 3);
-      writeln;
-      for i := 0 to n - 1 do
-        write(mass[i, 1]: 3);
-      writeln
-    end;
-    write('Enter pos cube[0..N-1]: ');
-    readln(k);
-    print_tm(priority_mas_1(k,mass));
-    writeln;
-    print_tm(priority_mas_2(k,mass));
-    writeln;
-    print_tm(priority_mas_3(k,mass));
-    writeln;
+    out_cubes('cubes.txt',10,n,true,true);
+    mass :=generation(n);
+    print_tm(mass);//cubes
+    write('Enter pos cube[0..N-1]: ');     // p
+    readln(k);                             //  r
+    print_tm(priority_mas_1(k,mass));      //   i
+    writeln;                               //    o  
+    print_tm(priority_mas_2(k,mass));      //     r
+    writeln;                               //      i
+    print_tm(priority_mas_3(k,mass));      //       t
+    writeln;                               //        y
     assertequal_ser(k,priority_mas_1(k,mass),priority_mas_2(k,mass),priority_mas_3);
   until false;
 end.

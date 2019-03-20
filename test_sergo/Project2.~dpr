@@ -34,6 +34,7 @@ begin
     writeln;
     print_tm(priority_mas_3(k,mass));
     writeln;
+    assertequal_ser(k,priority_mas_1(k,mass),priority_mas_2(k,mass),priority_mas_3);
   until false;
 end.
  
