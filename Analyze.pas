@@ -1,10 +1,13 @@
 unit Analyze;
 
 interface
+uses SysUtils;
 type
   tm = array of array[1..2] of ShortInt;
   sm = array of array of ShortInt;
 function move_calc(arr: tm): sm;
+function Qargvo_pidor(mas: sm): string;
+
 implementation
 
 function move_calc(arr: tm): sm;
@@ -80,19 +83,7 @@ begin
     inc(i);
   end;
 end;
-procedure position_calc(beg_arr:tm;res_arr:sm);
-var
-  n,i,j:Byte;
 
-begin
-  n:=Length(res_arr);
-for i:=0 to n-1 do
-  if res_arr[beg_arr[i,1]-1,0] > 0 then
-    begin
-      if i  <
-    end;
-
-end;
 
 
 
@@ -101,5 +92,49 @@ var intel:sm;
 begin
 intel:= move_calc(arr);
 end;
+
+
+function Qargvo_pidor(mas: sm): string;
+var S,s1: string;
+i,j,n,m,g,max,maxi,maxj:Integer;
+mas1: sm;
+begin
+S:='';
+n:= Length(mas);
+m:= Length(mas[1]);
+SetLength(mas1,n);
+for i:= 0 to n do
+  SetLength(mas1[i],m);
+mas1:= mas;
+repeat
+max:= 0;
+maxi:= 0;
+maxj:= 0;
+for i:= 0 to n do
+  for j:= 1 to 2*n+1 do
+    if mas1[i,j] > max then
+      begin
+        max:=mas1[i,j];
+        maxi:= i;
+        maxj:= j;
+      end;
+if max<> 0 then
+begin
+  if maxj div n = 0 then
+    S:= 'a'+ inttostr(maxj mod n + 1) + S
+  else
+    s:= 'b' + inttostr(maxj mod n + 1) + S;
+
+  if maxi div n = 0 then
+    S:= 'a'+ inttostr(maxi mod n + 1) + S
+  else
+    s:= 'b' + inttostr(maxi mod n + 1) + S;
+
+end;
+until max = 0;
+result:= S;
+
+end;
+
 end.
 
