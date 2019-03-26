@@ -6,7 +6,7 @@ type
   tm = array of array[1..2] of ShortInt;
   sm = array of array of ShortInt;
 function move_calc(arr: tm): sm;
-function Qargvo_pidor(mas: sm): string;
+function PACS(mas: sm): string;
 
 implementation
 
@@ -94,46 +94,39 @@ intel:= move_calc(arr);
 end;
 
 
-function Qargvo_pidor(mas: sm): string;
-var S,s1: string;
-i,j,n,m,g,max,maxi,maxj:Integer;
-mas1: sm;
+function PACS(mas: sm): string;// priority array to coordinate string
+var S: string;
+i,j,n,maxx,maxi,maxj:Integer;
 begin
-S:='';
-n:= Length(mas);
-m:= Length(mas[1]);
-SetLength(mas1,n);
-for i:= 0 to n do
-  SetLength(mas1[i],m);
-mas1:= mas;
-repeat
-max:= 0;
-maxi:= 0;
-maxj:= 0;
-for i:= 0 to n do
-  for j:= 1 to 2*n+1 do
-    if mas1[i,j] > max then
-      begin
-        max:=mas1[i,j];
-        maxi:= i;
-        maxj:= j;
-      end;
-if max<> 0 then
-begin
-  if maxj div n = 0 then
-    S:= 'a'+ inttostr(maxj mod n + 1) + S
-  else
-    s:= 'b' + inttostr(maxj mod n + 1) + S;
+    S:='';
+    n:= Length(mas);
+    repeat
+        maxx:= 0;  //Тут храним максимальный приоритет в таблице
+        maxi:= 0;  //Тут номер кубика с этим приоритетом
+        maxj:= 0;  //Тут конечное положение кубика
+        for i:= 0 to n-1 do             //Тут ищем максимальный элемент
+            for j:= 1 to 2*n do
+                if mas[i,j] > maxx then
+                begin
+                    maxx:=mas[i,j];
+                    maxi:= i;
+                    maxj:= j;
+                end;                    //Нашли
+        mas[maxi,maxj]:= 0;  //Зануляем его в таблице
+        if maxx<> 0 then     //Проверочка на ноль
+        begin
+            if maxj div (n+1) = 0 then           //Преобразование в кооррдинаты
+                S:= 'a'+ inttostr(maxj) + S      //места назначения
+            else
+                s:= 'b' + inttostr(maxj-n) + S;
 
-  if maxi div n = 0 then
-    S:= 'a'+ inttostr(maxi mod n + 1) + S
-  else
-    s:= 'b' + inttostr(maxi mod n + 1) + S;
-
-end;
-until max = 0;
-result:= S;
-
+            if mas[maxi,0] div (n+1) = 0 then         //Преобразование в координаты
+                S:= 'a'+ inttostr(mas[maxi,0]) + S    //места кубика изначально
+             else
+                s:= 'b' + inttostr(mas[maxi,0]-n) + S;
+        end;
+    until maxx = 0;   //Повторяем пока максимальный не окажется ноликом
+    result:= S;
 end;
 
 end.
