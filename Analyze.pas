@@ -1,13 +1,11 @@
 unit Analyze;
 
 interface
-uses SysUtils;
 type
   tm = array of array[1..2] of ShortInt;
   sm = array of array of ShortInt;
 function move_calc(arr: tm): sm;
 function PACS(mas: sm): string;
-
 implementation
 
 function move_calc(arr: tm): sm;
@@ -35,10 +33,10 @@ begin
         if ((i > (arr[n,1]-1)) and (i < (n - arr[n,2]))) then row := 0
         else Continue;
     ind :=  arr[i,row+1]-1;
-    Result[ind,0]:= (-1 + 2*row)*(i+1);
+    Result[ind,0]:= row * n + i;  ////
     //right
     j:=i+1;
-    sum := n+2;
+    sum := n+1;
     k:=0;
     while j < n do
       begin
@@ -46,20 +44,20 @@ begin
           Break;
         if arr[j,1] > 0 then
           begin
-          Result[ind,n+1 + j] := sum - (1 - row);
+          Result[ind,n+1 + j] := sum - (1 - row); ////
           if row = 0 then k:=1;
           end
         else
           if row = 1 then
-            Result[ind,2]:= sum -1
+            Result[ind, n + j]:= sum -1  ////
           else
-            Result[ind,1]:= sum - k;
+            Result[ind, j]:= sum - k; ////
           Dec(sum);
           Inc(j);
       end;
     //left
     j:=i-1;
-    sum := n+2;
+    sum := n+1;
     k:=0;
     while j >= 0 do
       begin
@@ -67,14 +65,14 @@ begin
           Break;
         if arr[j,1] > 0 then
           begin
-          Result[ind,n+1 + j] := sum - (1 - row);
+          Result[ind,n+1 + j] := sum - (1 - row);////
           if row = 0 then k:=1;
           end
         else
           if row = 1 then
-            Result[ind,2]:= sum -1
+            Result[ind,n + j]:= sum -1 //
           else
-            Result[ind,1]:= sum - k;
+            Result[ind,j]:= sum - k; //
           Dec(sum);
           dec(j);
       end;
@@ -83,7 +81,17 @@ begin
     inc(i);
   end;
 end;
-
+{procedure position_calc(beg_arr:tm;res_arr:sm);
+var
+  n,i,j:Byte;
+begin
+  n:=Length(res_arr);
+for i:=0 to n-1 do
+  if res_arr[beg_arr[i,1]-1,0] > 0 then
+    begin
+      if i  <
+    end;
+end;     }
 
 
 
@@ -92,7 +100,6 @@ var intel:sm;
 begin
 intel:= move_calc(arr);
 end;
-
 
 function PACS(mas: sm): string;// priority array to coordinate string
 var S: string;
@@ -126,6 +133,5 @@ begin
     end;
     Result:= s;
 end;
-
 end.
 
