@@ -6,6 +6,7 @@ type
   sm = array of array of ShortInt;
 function move_calc(arr: tm): sm;
 function PACS(mas: sm): string;
+function CSCA(var s: string; n: Integer):tm;
 implementation
 
 function move_calc(arr: tm): sm;
@@ -133,5 +134,22 @@ begin
     end;
     Result:= s;
 end;
+
+function CSCA(var s: string; n: integer): tm;//coordinate string to coordinate array
+var l: Integer;
+begin
+    SetLength(Result,1);
+    l:= Length(s);
+    if s[l-3]= 'a' then
+        Result[0,1]:= StrToInt(s[l-2])
+    else
+        Result[0,1]:= n + Strtoint(s[l-2]);
+    if s[l-1]= 'a' then
+        Result[0,2]:= StrToInt(s[l])
+    else
+        Result[0,2]:= n + Strtoint(s[l]);
+    SetLength(s,l-4);
+end;
+
 end.
 
