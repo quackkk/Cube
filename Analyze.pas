@@ -96,37 +96,35 @@ end;
 
 function PACS(mas: sm): string;// priority array to coordinate string
 var S: string;
-i,j,n,maxx,maxi,maxj:Integer;
+i,j,k,n,max:Integer;
 begin
     S:='';
     n:= Length(mas);
-    repeat
-        maxx:= 0;  //Тут храним максимальный приоритет в таблице
-        maxi:= 0;  //Тут номер кубика с этим приоритетом
-        maxj:= 0;  //Тут конечное положение кубика
-        for i:= 0 to n-1 do             //Тут ищем максимальный элемент
+    //find max
+    max:= 0;
+    for i:= 0 to n-1 do
+        for j:= 1 to 2*n do
+            if mas[i,j] > max then
+                max:=mas[i,j];
+    //create a result string
+    for k:= max downto 1 do
+    begin
+        for i:= 0 to n-1 do
             for j:= 1 to 2*n do
-                if mas[i,j] > maxx then
+                if mas[i,j] = k then
                 begin
-                    maxx:=mas[i,j];
-                    maxi:= i;
-                    maxj:= j;
-                end;                    //Нашли
-        mas[maxi,maxj]:= 0;  //Зануляем его в таблице
-        if maxx<> 0 then     //Проверочка на ноль
-        begin
-            if maxj div (n+1) = 0 then           //Преобразование в кооррдинаты
-                S:= 'a'+ inttostr(maxj) + S      //места назначения
-            else
-                s:= 'b' + inttostr(maxj-n) + S;
+                    if j div (n+1) = 0 then
+                        S:= 'a'+ inttostr(j) + S
+                    else
+                        s:= 'b' + inttostr(j-n) + S;
 
-            if mas[maxi,0] div (n+1) = 0 then         //Преобразование в координаты
-                S:= 'a'+ inttostr(mas[maxi,0]) + S    //места кубика изначально
-             else
-                s:= 'b' + inttostr(mas[maxi,0]-n) + S;
-        end;
-    until maxx = 0;   //Повторяем пока максимальный не окажется ноликом
-    result:= S;
+                    if mas[i,0] div (n+1) = 0 then
+                        S:= 'a'+ inttostr(mas[i,0]) + S
+                     else
+                        s:= 'b' + inttostr(mas[i,0]-n) + S;
+                end;
+    end;
+    Result:= s;
 end;
 
 end.
