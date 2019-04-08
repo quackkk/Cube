@@ -1,12 +1,14 @@
 unit Analyze;
 
 interface
+uses SysUtils;
 type
   tm = array of array[1..2] of ShortInt;
   sm = array of array of ShortInt;
 function move_calc(arr: tm): sm;
 function PACS(mas: sm): string;
 function CSCA(var s: string; n: Integer):tm;
+function hand_priority(arr_sost, hand_pos: tm): tm;
 implementation
 
 function move_calc(arr: tm): sm;
@@ -82,25 +84,8 @@ begin
     inc(i);
   end;
 end;
-{procedure position_calc(beg_arr:tm;res_arr:sm);
-var
-  n,i,j:Byte;
-begin
-  n:=Length(res_arr);
-for i:=0 to n-1 do
-  if res_arr[beg_arr[i,1]-1,0] > 0 then
-    begin
-      if i  <
-    end;
-end;     }
 
 
-
-function deep_analyze(arr:tm):string;
-var intel:sm;
-begin
-intel:= move_calc(arr);
-end;
 
 function PACS(mas: sm): string;// priority array to coordinate string
 var S: string;
@@ -149,6 +134,14 @@ begin
     else
         Result[0,2]:= n + Strtoint(s[l]);
     SetLength(s,l-4);
+end;
+
+function hand_priority(arr_sost, hand_pos: tm): tm;
+var i,j, n: Integer;
+begin
+    n:= length(arr_sost) - 1;
+    SetLength(Result, n);
+
 end;
 
 end.
