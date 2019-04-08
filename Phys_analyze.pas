@@ -248,18 +248,12 @@ begin
 
     end;
 
-    if not b then
-
-        if i = n-1 then j:= i-1
-
-                   else j:= i;
-
-    Result[n-1, 1]:= j + 1;
-
-
+    if b then
+        Result[n-1, 1]:= j +1
+    else
+        Result[n-1, 1]:= n - 1;
 
      b:= False;
-
     for i:= n-2 downto 0 do
 
     begin
@@ -278,15 +272,10 @@ begin
 
     end;
 
-    if not b then
-
-        if i = n-1 then j:= i-1
-
-                   else j:= i;
-
-    j:= (n - 2) - j;
-
-    Result[n-1, 2]:= j ;
+    if b then
+        Result[n-1, 2]:= n - j - 1;
+    else
+        Result[n-1, 2]:= n - 1;
 
 
 
