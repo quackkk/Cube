@@ -24,6 +24,8 @@ function Calc_Len_Road(const arr_sost:tm;const arr_move:tm;const n_p_h:byte):byt
 
 function Move(const arr_sost:tm;const arr_move:tm):tm;
 
+function hand_priority(arr_sost:tm; n_p_h: byte): tm;
+
 //function Rgen(n: ShortInt): tm;
 
 
@@ -277,18 +279,27 @@ begin
     else
         Result[n-1, 2]:= n - 1;
 
-
-
-
-
-
-
-
-
-
-
 end;
 
+function hand_priority(arr_sost:tm; n_p_h: byte): tm;
+var n,i,j:Integer;
+m: tm;
+begin
+    n:= length(arr_sost) - 1;
+    SetLength(result, n + 1);
+    SetLength(m,1);
 
+    m[0,1]:= n_p_h;
+
+    for i:= 1 to 2 do
+        for j:= 0 to n-1 do
+            if arr_sost[j,i]<>0 then
+            begin
+                if i = 2 then m[0,2]:=n
+                else m[0,2]:=0;
+                Inc(m[0,2], j+1);
+                result[arr_sost[j,i]]:= Calc_len_Road(arr_sost, m, n_p_h);
+            end;
+end;
 
 end.
