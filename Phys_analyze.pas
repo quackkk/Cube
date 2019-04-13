@@ -298,7 +298,7 @@ begin
                 if i = 2 then m[0,2]:=n
                 else m[0,2]:=0;
                 Inc(m[0,2], j+1);
-                result[arr_sost[j,i]]:= Calc_len_Road(arr_sost, m, n_p_h);
+                result[arr_sost[j,i], 1]:= Calc_len_Road(arr_sost, m, n_p_h);
             end;
 end;
 
