@@ -1,7 +1,7 @@
 unit Analyze;
 
 interface
-uses SysUtils;
+
 type
   tm = array of array[1..2] of ShortInt;
   sm = array of array of ShortInt;
@@ -10,7 +10,16 @@ function PACS(mas: sm): string;
 function CSCA(var s: string; n: Integer):tm;
 function hand_priority(arr_sost, hand_pos: tm): tm;
 implementation
-
+function inttostr(x:Integer):string ;
+var i:integer;
+begin
+  result:='';
+  while x<>0 do
+   begin
+     result:=chr(x mod 10+48)+result;
+     x:=x div 10;
+   end;
+end;
 function move_calc(arr: tm): sm;
 var
   n, i, j, x, y, ind: Integer;
@@ -126,13 +135,13 @@ begin
     SetLength(Result,1);
     l:= Length(s);
     if s[l-3]= 'a' then
-        Result[0,1]:= StrToInt(s[l-2])
+        Result[0,1]:= Ord(s[l-2]) - 48
     else
-        Result[0,1]:= n + Strtoint(s[l-2]);
+        Result[0,1]:= n + Ord(s[l-2])  - 48;
     if s[l-1]= 'a' then
-        Result[0,2]:= StrToInt(s[l])
+        Result[0,2]:= Ord(s[l]) - 48
     else
-        Result[0,2]:= n + Strtoint(s[l]);
+        Result[0,2]:= n + Ord(s[l]) - 48;
     SetLength(s,l-4);
 end;
 
